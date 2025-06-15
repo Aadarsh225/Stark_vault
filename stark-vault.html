@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stark Vault Login</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('https://w0.peakpx.com/wallpaper/176/1010/HD-wallpaper-ironman-red-neon-lights-superheroes-marvel-comics-ironman-cartoon-iron-man.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+    .container {
+      text-align: center;
+      padding-top: 100px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #FFD700;
+      text-shadow: 2px 2px 5px #000;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #FFD700;
+      width: fit-content;
+      margin: 0 auto 30px auto;
+    }
+    .box {
+      background-color: rgba(0, 0, 0, 0.7);
+      display: inline-block;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #FF0000;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #FF0000;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    button:hover {
+      background-color: #B22222;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="heading"></h1>
+    <div class="box">
+      <label for="name">Enter your Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter Your Name" />
+
+      <label for="password">Enter Your Password:</label>
+      <input type="password" id="password" name="password" placeholder="Enter Your Password" />
+
+      <button id="loginBtn">Login</button>
+    </div>
+  </div>
+
+  <script>
+    // Typewriter Effect
+    const heading = document.getElementById('heading');
+    const text = "Enter Into Stark Vault";
+    let index = 0;
+
+    function typeWriter() {
+      if (index < text.length) {
+        heading.innerHTML += text.charAt(index);
+        index++;
+        setTimeout(typeWriter, 100);
+      }
+    }
+    typeWriter();
+
+    // Speak welcome message ONLY after first user click anywhere
+    function speak(text) {
+      if (!window.speechSynthesis) return;
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.pitch = 1.2;
+      utter.rate = 0.9;
+      window.speechSynthesis.speak(utter);
+    }
+
+    function setupWelcomeSpeech() {
+      function onFirstClick() {
+        speak('Welcome to Stark Vault, please enter your details.');
+        document.body.removeEventListener('click', onFirstClick);
+      }
+      document.body.addEventListener('click', onFirstClick);
+    }
+    setupWelcomeSpeech();
+
+    // Login button speech
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      const nameInput = document.getElementById('name').value.trim();
+      const passInput = document.getElementById('password').value.trim();
+
+      if (nameInput && passInput) {
+        speak(`Welcome to Stark Industry, ${nameInput}`);
+      } else {
+        speak('Please enter both your name and password.');
+      }
+    });
+  </script>
+</body>
+</html>
